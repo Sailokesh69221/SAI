@@ -1,0 +1,94 @@
+function updateClock() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours();
+
+    const secondDeg = ((seconds / 60) * 360) + 90; // +90 for rotation starting point
+    const minuteDeg = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90; // +90 for rotation starting point
+    const hourDeg = ((hours / 12) * 360) + ((minutes / 60) * 30) + 90; // +90 for rotation starting point
+
+    document.getElementById('second').style.transform = `rotate(${secondDeg}deg)`;
+    document.getElementById('minute').style.transform = `rotate(${minuteDeg}deg)`;
+    document.getElementById('hour').style.transform = `rotate(${hourDeg}deg)`;
+}
+
+// Update the clock every second
+setInterval(updateClock, 1000);
+
+// Initial call to set the clock immediately
+updateClock();
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    margin: 0;
+}
+
+.clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 10px solid #fff;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 30%, #ccc 70%);
+}
+
+.hand {
+    position: absolute;
+    background: #333;
+    transform-origin: bottom;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hour {
+    width: 6px;
+    height: 50px;
+    border-radius: 6px;
+}
+
+.minute {
+    width: 4px;
+    height: 70px;
+    border-radius: 4px;
+}
+
+.second {
+    width: 2px;
+    height: 90px;
+    background: red;
+    border-radius: 2px;
+}
+
+.center {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #333;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock Using Pure JS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="clock">
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+        <div class="center"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
